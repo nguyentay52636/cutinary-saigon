@@ -8,16 +8,16 @@ import { Button } from '../ui/button'
 export default function Header() {
     return (
         <>
-            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
+            <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
                 <div className="container mx-auto px-4">
-                    <div className="flex h-20 items-center justify-between gap-4">
+                    <div className="flex h-30 items-center justify-between gap-4">
                         <Link href="/" className="flex items-center gap-3  group">
                             {/* <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
                                 <ChefHat className="w-7 h-7 text-primary-foreground" />
                             </div> */}
                             <img src="/logo.png" alt="logo" className="w-12 h-12 z-10" />
                             <div className="hidden sm:block">
-                                <h1 className="text-xl font-bold leading-tight">Sài Gòn Culinary Hub</h1>
+                                <h1 className="text-2xl font-bold leading-tight">Sài Gòn Culinary Hub</h1>
                                 <p className="text-xs text-muted-foreground">Khám phá ẩm thực</p>
                             </div>
                         </Link>
@@ -32,22 +32,22 @@ export default function Header() {
                             </div>
                         </div>
 
-                        <nav className="hidden lg:flex items-center gap-2">
-                            <Button asChild variant="ghost" size="sm">
+                        <nav className="hidden lg:flex items-center gap-2 text-md" >
+                            <Button asChild variant="ghost" size="default">
                                 <Link href="#featured">Món nổi bật</Link>
                             </Button>
-                            <Button asChild variant="ghost" size="sm">
+                            <Button asChild variant="ghost" size="default">
                                 <Link href="#places">Địa điểm</Link>
                             </Button>
-                            <Button asChild variant="ghost" size="sm">
+                            <Button asChild variant="ghost" size="default">
                                 <Link href="#events">Sự kiện</Link>
                             </Button>
-                            <Button asChild variant="ghost" size="sm">
+                            <Button asChild variant="ghost" size="default">
                                 <Link href="#blog">Blog</Link>
                             </Button>
                         </nav>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 text-md">
                             <Button asChild variant="outline">
                                 <Link href="/login">Đăng nhập</Link>
                             </Button>

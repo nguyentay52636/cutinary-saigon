@@ -57,7 +57,7 @@ export default function FeatureSection() {
                             return (
                                 <Card
                                     key={index}
-                                    className="group cursor-pointer hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 hover:border-primary/20 bg-card/50 backdrop-blur-sm"
+                                    className="group hover:bg-primary/10 rounded-3xl cursor-pointer hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 hover:border-primary/20 bg-card/50 backdrop-blur-sm"
                                 >
                                     <CardContent className="p-8">
                                         <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
