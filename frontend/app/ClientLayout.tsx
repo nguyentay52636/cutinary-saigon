@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import Header from "@/shared/components/Header";
 import Footer from "@/shared/components/Footer";
+import { HeaderAuth } from "@/shared/components/HeaderAuth/HeaderAuth";
 
 export default function ClientLayout({
     children,
@@ -14,7 +15,7 @@ export default function ClientLayout({
 
     return (
         <>
-            {!isAuthPage && !isAdminPage && <Header />}
+            {!isAuthPage && !isAdminPage && <HeaderAuth />}
             {children}
             {!isAuthPage && !isAdminPage && <Footer />}
         </>
