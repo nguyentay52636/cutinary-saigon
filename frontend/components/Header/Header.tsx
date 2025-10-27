@@ -11,10 +11,11 @@ export default function Header() {
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
                 <div className="container mx-auto px-4">
                     <div className="flex h-20 items-center justify-between gap-4">
-                        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-                            <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
+                        <Link href="/" className="flex items-center gap-3  group">
+                            {/* <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
                                 <ChefHat className="w-7 h-7 text-primary-foreground" />
-                            </div>
+                            </div> */}
+                            <img src="/logo.png" alt="logo" className="w-12 h-12 z-10" />
                             <div className="hidden sm:block">
                                 <h1 className="text-xl font-bold leading-tight">Sài Gòn Culinary Hub</h1>
                                 <p className="text-xs text-muted-foreground">Khám phá ẩm thực</p>
