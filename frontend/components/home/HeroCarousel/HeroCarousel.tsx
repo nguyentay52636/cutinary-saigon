@@ -7,16 +7,31 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 
+const heroImages = [
+  { src: "/img/pho-bowl.jpg", alt: "Phở Bò" },
+  { src: "/img/banh-mi-sandwich.jpg", alt: "Bánh Mì" },
+  { src: "/img/com-tam-rice.jpg", alt: "Cơm Tấm" },
+  { src: "/img/bun-bo-hue.png", alt: "Bún Bò Huế" },
+  { src: "/img/hu-tieu.jpg", alt: "Hủ Tiếu" },
+  { src: "/img/mi-quang.jpg", alt: "Mì Quảng" },
+  { src: "/img/restaurant-1.jpg", alt: "Nhà hàng Sài Gòn" },
+  { src: "/img/restaurant-2.jpg", alt: "Quán ăn vỉa hè" },
+  { src: "/img/restaurant-2.jpg", alt: "Quán ăn vỉa hè" },
+]
+
 export default function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     if (!isPaused) {
       intervalRef.current = setInterval(() => {
+        setIsAnimating(true)
         setCurrentIndex((prev) => (prev + 1) % heroImages.length)
-      }, 4000)
+        setTimeout(() => setIsAnimating(false), 800)
+      }, 5000)
     }
 
     return () => {
@@ -25,17 +40,6 @@ export default function HeroCarousel() {
       }
     }
   }, [isPaused])
-
-  const heroImages = [
-    { src: "/img/pho-bowl.jpg", alt: "Phở Bò" },
-    { src: "/img/banh-mi-sandwich.jpg", alt: "Bánh Mì" },
-    { src: "/img/com-tam-rice.jpg", alt: "Cơm Tấm" },
-    { src: "/img/bun-bo-hue.png", alt: "Bún Bò Huế" },
-    { src: "/img/hu-tieu.jpg", alt: "Hủ Tiếu" },
-    { src: "/img/mi-quang.jpg", alt: "Mì Quảng" },
-    { src: "/img/restaurant-1.jpg", alt: "Nhà hàng Sài Gòn" },
-    { src: "/img/restaurant-2.jpg", alt: "Quán ăn vỉa hè" },
-  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -127,35 +131,37 @@ export default function HeroCarousel() {
 
                 const absOffset = Math.abs(normalizedOffset)
 
-                // BrandLyft-style fan-out calculation với khoảng cách và độ cong nhiều hơn
-                const rotation = normalizedOffset * 8 // Tăng góc xoay lên ±32°
-                const leftOffset = normalizedOffset * 100 // Tăng khoảng cách lên 100px
+                const rotation = normalizedOffset * 10
+                const leftOffset = normalizedOffset * 140
                 const zIndex = heroImages.length - absOffset
 
-                // Scale và opacity - điều chỉnh để tạo vòng cung cong hơn
-                const scale = Math.max(0.7, 1 - absOffset * 0.06)
+                const scale = Math.max(0.1, 1 - absOffset * 0.1)
                 const opacity = Math.max(0.6, 1 - absOffset * 0.12)
 
                 // Enhanced shadow for center items
                 const shadowIntensity = Math.max(0.5, 1 - absOffset * 0.2)
 
                 return (
-                  <div className="">
+                  <div className="mx-auto" key={`card-${index}`}>
                     <motion.div
-                      key={index}
+                      layout
+                      initial={false}
                       className="absolute cursor-grab active:cursor-grabbing"
                       style={{
                         left: `calc(40% + ${leftOffset}px)`,
-                        transform: `translateX(-50%) rotateY(${rotation}deg) scale(${scale})`,
+                        transform: 'translateX(-50%)',
                         transformStyle: 'preserve-3d',
                         zIndex,
-                        opacity,
                       }}
                       whileHover={{
                         rotateY: 0,
                         scale: 1.12,
                         z: 60,
-                        transition: { duration: 0.3, ease: "easeOut" }
+                        transition: {
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 25
+                        }
                       }}
                       animate={{
                         rotateY: rotation,
@@ -163,8 +169,11 @@ export default function HeroCarousel() {
                         opacity: opacity,
                       }}
                       transition={{
-                        duration: 0.6,
-                        ease: "easeInOut"
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 20,
+                        mass: 1,
+                        duration: 0.8
                       }}
                       onClick={() => setCurrentIndex(index)}
                       onDragEnd={(e, info) => {
@@ -218,31 +227,61 @@ export default function HeroCarousel() {
                 )
               })}
             </div>
-            <div className="flex justify-between items-center mb-6 max-w-6xl mx-auto px-4">
+            {/* Slider Navigation Controls */}
+            <div className="flex justify-center items-center gap-4 mt-8">
               <button
-                onClick={() => setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length)}
-                className="p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+                onClick={() => {
+                  setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length)
+                  setIsAnimating(true)
+                  setTimeout(() => setIsAnimating(false), 800)
+                }}
+                className="p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95"
                 aria-label="Previous image"
+                disabled={isAnimating}
               >
                 <ChevronLeft className="w-6 h-6 text-gray-700" />
               </button>
-              <div className="flex gap-2">
+
+              {/* Slider Track */}
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
                 {heroImages.map((_, index) => (
-                  <button
+                  <motion.button
                     key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                      ? 'bg-primary w-8'
-                      : 'bg-gray-300'
-                      }`}
+                    onClick={() => {
+                      setCurrentIndex(index)
+                      setIsAnimating(true)
+                      setTimeout(() => setIsAnimating(false), 800)
+                    }}
+                    className={`relative ${index === currentIndex
+                      ? 'bg-primary'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                      } transition-colors duration-300 rounded-full cursor-pointer`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    animate={{
+                      width: index === currentIndex ? '32px' : '8px',
+                      height: '8px'
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
+                    }}
                     aria-label={`Go to slide ${index + 1}`}
+                    disabled={isAnimating}
                   />
                 ))}
               </div>
+
               <button
-                onClick={() => setCurrentIndex((prev) => (prev + 1) % heroImages.length)}
-                className="p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+                onClick={() => {
+                  setCurrentIndex((prev) => (prev + 1) % heroImages.length)
+                  setIsAnimating(true)
+                  setTimeout(() => setIsAnimating(false), 800)
+                }}
+                className="p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95"
                 aria-label="Next image"
+                disabled={isAnimating}
               >
                 <ChevronRight className="w-6 h-6 text-gray-700" />
               </button>
