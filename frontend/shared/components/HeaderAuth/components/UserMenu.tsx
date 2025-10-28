@@ -57,7 +57,7 @@ export function UserMenu() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href="/login" className="cursor-pointer text-destructive py-3">
+                    <Link href="/auth/login" className="cursor-pointer text-destructive py-3">
                         <LogOut className="mr-3 h-5 w-5" />
                         <span className="text-base">Đăng xuất</span>
                     </Link>
