@@ -8,10 +8,23 @@ import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet"
 import { Menu, Shield, LogOut } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { navItems } from "./routes"
+import { useTranslation } from "@/shared/contexts/TranslationContext"
+
+const translationMap: Record<string, string> = {
+    "Trang chủ": "home",
+    "Về chúng tôi": "about",
+    "Khám phá": "explore",
+    "Nhận diện món": "foodRecognition",
+    "Bản đồ": "map",
+    "Livestream": "livestream",
+    "AR Preview": "arPreview",
+    "Sự kiện": "events",
+}
 
 export function MobileMenu() {
     const pathname = usePathname()
     const [isOpen, setIsOpen] = useState(false)
+    const { t } = useTranslation()
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -25,6 +38,7 @@ export function MobileMenu() {
                     {navItems.map((item) => {
                         const Icon = item.icon
                         const isActive = pathname === item.href
+                        const translationKey = translationMap[item.label] || item.label
                         return (
                             <Button
                                 key={item.href}
@@ -38,7 +52,7 @@ export function MobileMenu() {
                             >
                                 <Link href={item.href}>
                                     <Icon className="h-5 w-5" />
-                                    <span>{item.label}</span>
+                                    <span>{t(translationKey as any)}</span>
                                 </Link>
                             </Button>
                         )
@@ -55,7 +69,7 @@ export function MobileMenu() {
                         >
                             <Link href="/admin" onClick={() => setIsOpen(false)}>
                                 <Shield className="h-5 w-5" />
-                                <span>Quản trị</span>
+                                <span>{t('admin')}</span>
                             </Link>
                         </Button>
                         <Button
@@ -65,7 +79,7 @@ export function MobileMenu() {
                         >
                             <Link href="/login" onClick={() => setIsOpen(false)}>
                                 <LogOut className="h-5 w-5" />
-                                <span>Đăng xuất</span>
+                                <span>{t('logout')}</span>
                             </Link>
                         </Button>
                     </div>

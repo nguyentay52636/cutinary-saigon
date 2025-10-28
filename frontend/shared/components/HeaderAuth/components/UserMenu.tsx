@@ -13,8 +13,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar"
 import { Badge } from "@/shared/ui/badge"
 import { User, Shield, LogOut } from "lucide-react"
+import { useTranslation } from "@/shared/contexts/TranslationContext"
 
 export function UserMenu() {
+    const { t } = useTranslation()
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -38,7 +41,7 @@ export function UserMenu() {
                             nguyenvana@email.com
                         </p>
                         <Badge variant="secondary" className="w-fit">
-                            Quản trị viên
+                            {t('adminPanel')}
                         </Badge>
                     </div>
                 </DropdownMenuLabel>
@@ -46,20 +49,20 @@ export function UserMenu() {
                 <DropdownMenuItem asChild>
                     <Link href="/profile" className="cursor-pointer py-3">
                         <User className="mr-3 h-5 w-5" />
-                        <span className="text-base">Hồ sơ</span>
+                        <span className="text-base">{t('profile')}</span>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link href="/admin" className="cursor-pointer py-3">
                         <Shield className="mr-3 h-5 w-5" />
-                        <span className="text-base">Quản trị</span>
+                        <span className="text-base">{t('admin')}</span>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <Link href="/auth/login" className="cursor-pointer text-destructive py-3">
                         <LogOut className="mr-3 h-5 w-5" />
-                        <span className="text-base">Đăng xuất</span>
+                        <span className="text-base">{t('logout')}</span>
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuContent>

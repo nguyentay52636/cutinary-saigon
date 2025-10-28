@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/shared/components/Header";
-import Footer from "@/shared/components/Footer";
 import { ThemeProvider } from "@/shared/components/Footer/ThemeProvider";
 import ClientLayout from "./ClientLayout";
+import WrapTranslationProvider from "@/shared/contexts/TranslationProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,9 +23,11 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           enableSystem>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
+          <WrapTranslationProvider>
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+          </WrapTranslationProvider>
         </ThemeProvider>
 
       </body>

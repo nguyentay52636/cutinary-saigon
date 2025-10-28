@@ -1,0 +1,20 @@
+{
+    "welcome": "Welcome",
+    "home": "Home",
+    "about": "About Us",
+    "explore": "Explore",
+    "foodRecognition": "Food Recognition",
+    "map": "Map",
+    "livestream": "Livestream",
+    "arPreview": "AR Preview",
+    "events": "Events",
+    "livestreams": "Livestreams",
+    "profile": "Profile",
+    "admin": "Admin",
+    "logout": "Logout",
+    "adminPanel": "Administrator",
+    "notifications": "Notifications",
+    "menu": "Menu",
+    "viewProfile": "View Profile",
+    "settings": "Settings"
+}

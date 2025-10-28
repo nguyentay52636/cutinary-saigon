@@ -6,15 +6,29 @@ import { Button } from "@/shared/ui/button"
 import { Shield } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { navItems } from "./routes"
+import { useTranslation } from "@/shared/contexts/TranslationContext"
+
+const translationMap: Record<string, string> = {
+    "Trang chủ": "home",
+    "Về chúng tôi": "about",
+    "Khám phá": "explore",
+    "Nhận diện món": "foodRecognition",
+    "Bản đồ": "map",
+    "Livestream": "livestream",
+    "AR Preview": "arPreview",
+    "Sự kiện": "events",
+}
 
 export function DesktopNav() {
     const pathname = usePathname()
+    const { t } = useTranslation()
 
     return (
         <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => {
                 const Icon = item.icon
                 const isActive = pathname === item.href
+                const translationKey = translationMap[item.label] || item.label
                 return (
                     <Button
                         key={item.href}
@@ -28,7 +42,7 @@ export function DesktopNav() {
                     >
                         <Link href={item.href}>
                             <Icon className="h-4 w-4" />
-                            <span className="font-medium text-sm">{item.label}</span>
+                            <span className="font-medium text-sm">{t(translationKey as any)}</span>
                         </Link>
                     </Button>
                 )
@@ -45,7 +59,7 @@ export function DesktopNav() {
             >
                 <Link href="/admin">
                     <Shield className="h-4 w-4" />
-                    <span className="font-medium text-sm">Quản trị</span>
+                    <span className="font-medium text-sm">{t('admin')}</span>
                 </Link>
             </Button>
         </nav>

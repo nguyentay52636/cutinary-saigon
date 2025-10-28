@@ -9,12 +9,12 @@ export function Logo() {
             <img src="/logo.png" alt="logo" className="w-12 h-12 z-10" />
             <div className="hidden sm:block">
                 <h1 className="text-xl font-bold leading-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                    Sài Gòn Culinary Hub
+                    SaigonTaste
                 </h1>
                 <p className="text-md text-muted-foreground font-medium">
-                    tảng ẩm thực Việt Nam 🇻🇳
+                    Ẩm thực Việt Nam 🇻🇳
                 </p>
-           
+
             </div>
         </Link>
     )

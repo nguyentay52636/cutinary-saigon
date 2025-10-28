@@ -1,6 +1,6 @@
 "use client"
 
-import { Logo, DesktopNav, UserMenu, NotificationButton, MobileMenu } from "./components"
+import { Logo, DesktopNav, UserMenu, NotificationButton, MobileMenu, LanguageSwitcher } from "./components"
 
 export function HeaderAuth() {
     return (
@@ -10,6 +10,7 @@ export function HeaderAuth() {
                     <Logo />
                     <DesktopNav />
                     <div className="flex items-center gap-3">
+                        <LanguageSwitcher />
                         <NotificationButton />
                         <UserMenu />
                         <MobileMenu />
