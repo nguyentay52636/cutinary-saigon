@@ -12,8 +12,11 @@ import { Mail } from 'lucide-react'
 import { Phone } from 'lucide-react'
 import { Shield } from 'lucide-react'
 import Link from 'next/link'
+import { useTranslation } from '@/shared/contexts/TranslationContext'
 
 export default function Footer() {
+    const { t } = useTranslation()
+
     return (
         <>
             <footer className="border-t py-16 bg-card/50">
@@ -25,13 +28,12 @@ export default function Footer() {
                                     <ChefHat className="w-7 h-7 text-primary-foreground" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-lg">Sài Gòn Culinary Hub</h3>
-                                    <p className="text-sm text-muted-foreground">Khám phá ẩm thực Sài Gòn</p>
+                                    <h3 className="font-bold text-lg">{t('footer.companyName')}</h3>
+                                    <p className="text-sm text-muted-foreground">{t('footer.tagline')}</p>
                                 </div>
                             </div>
                             <p className="text-muted-foreground mb-6 leading-relaxed">
-                                Nền tảng chuyển đổi số hàng đầu cho du lịch ẩm thực địa phương tại Thành phố Hồ Chí Minh. Kết nối người
-                                yêu ẩm thực với hàng nghìn nhà hàng và quán ăn đặc sắc.
+                                {t('footer.description')}
                             </p>
                             <div className="flex items-center gap-4">
                                 <Button size="icon" variant="outline" className="rounded-full bg-transparent">
@@ -47,49 +49,49 @@ export default function Footer() {
                         </div>
 
                         <div>
-                            <h4 className="font-semibold mb-4 text-lg">Khám phá</h4>
+                            <h4 className="font-semibold mb-4 text-lg">{t('footer.explore')}</h4>
                             <ul className="space-y-3 text-muted-foreground">
                                 <li>
                                     <Link href="/map" className="hover:text-foreground transition-colors flex items-center gap-2">
                                         <MapPin className="h-4 w-4" />
-                                        Bản đồ nhà hàng
+                                        {t('footer.restaurantMap')}
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/livestream" className="hover:text-foreground transition-colors flex items-center gap-2">
                                         <Video className="h-4 w-4" />
-                                        Livestream
+                                        {t('footer.livestream')}
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/events" className="hover:text-foreground transition-colors flex items-center gap-2">
                                         <Calendar className="h-4 w-4" />
-                                        Sự kiện
+                                        {t('footer.events')}
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/explore" className="hover:text-foreground transition-colors flex items-center gap-2">
                                         <Globe className="h-4 w-4" />
-                                        Khám phá
+                                        {t('footer.exploreLink')}
                                     </Link>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <h4 className="font-semibold mb-4 text-lg">Liên hệ</h4>
+                            <h4 className="font-semibold mb-4 text-lg">{t('footer.contact')}</h4>
                             <ul className="space-y-3 text-muted-foreground">
                                 <li className="flex items-start gap-2">
                                     <MapPinned className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                                    <span>123 Nguyễn Huệ, Quận 1, TP.HCM</span>
+                                    <span>{t('footer.address')}</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <Phone className="h-5 w-5 flex-shrink-0" />
-                                    <span>(028) 1234 5678</span>
+                                    <span>{t('footer.phone')}</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <Mail className="h-5 w-5 flex-shrink-0" />
-                                    <span>hello@sgculinary.vn</span>
+                                    <span>{t('footer.email')}</span>
                                 </li>
                             </ul>
                         </div>
@@ -97,17 +99,17 @@ export default function Footer() {
 
                     <div className="border-t pt-8">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-                            <p>© 2025 Sài Gòn Culinary Hub. Được phát triển cho Hackathon Chuyển đổi số Du lịch.</p>
+                            <p>{t('footer.copyright')}</p>
                             <div className="flex items-center gap-6">
                                 <Link href="/privacy" className="hover:text-foreground transition-colors">
-                                    Chính sách bảo mật
+                                    {t('footer.privacyPolicy')}
                                 </Link>
                                 <Link href="/terms" className="hover:text-foreground transition-colors">
-                                    Điều khoản sử dụng
+                                    {t('footer.termsOfUse')}
                                 </Link>
                                 <div className="flex items-center gap-2">
                                     <Shield className="h-4 w-4" />
-                                    <span>Bảo mật SSL</span>
+                                    <span>{t('footer.sslSecurity')}</span>
                                 </div>
                             </div>
                         </div>

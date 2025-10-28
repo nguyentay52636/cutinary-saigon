@@ -28,6 +28,7 @@ import { ARPreviewSection } from "./components/ARPreviewSection"
 import { EventsSection } from "./components/EventsSection"
 import { QuickAccessGrid } from "./components/QuickAccessGrid"
 import { categories, recommendedRoutes, featuredRestaurants, liveStreams, upcomingEvents } from "./data"
+import { useTranslation } from '@/shared/contexts/TranslationContext'
 
 export default function Home() {
     const [searchQuery, setSearchQuery] = useState("")
@@ -44,6 +45,8 @@ export default function Home() {
             { time: "21:00", temp: 28, condition: "rain" },
         ],
     })
+
+    const { t } = useTranslation()
 
     useEffect(() => {
         const fetchWeather = async () => {
@@ -72,18 +75,18 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                            Chào mừng đến Sài Gòn! 👋
+                            {t('homePage.welcomeToSaigon')}
                         </h1>
-                        <p className="text-muted-foreground text-lg">Khám phá ẩm thực đặc sắc của thành phố</p>
+                        <p className="text-muted-foreground text-lg">{t('homePage.discoverCityCuisine')}</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Button variant="outline" size="lg" className="gap-2 bg-transparent">
                             <Heart className="h-5 w-5" />
-                            Yêu thích
+                            {t('homePage.favorites')}
                         </Button>
                         <Button size="lg" className="gap-2 shadow-lg">
                             <NavigationIcon className="h-5 w-5" />
-                            Lộ trình của tôi
+                            {t('homePage.myRoute')}
                         </Button>
                     </div>
                 </div>
@@ -105,19 +108,19 @@ export default function Home() {
                     <TabsList className="grid w-full grid-cols-4 h-14">
                         <TabsTrigger value="restaurants" className="text-base gap-2">
                             <ChefHat className="h-5 w-5" />
-                            Nhà hàng
+                            {t('homePage.restaurants')}
                         </TabsTrigger>
                         <TabsTrigger value="livestream" className="text-base gap-2">
                             <Video className="h-5 w-5" />
-                            Livestream
+                            {t('livestream')}
                         </TabsTrigger>
                         <TabsTrigger value="ar" className="text-base gap-2">
                             <Box className="h-5 w-5" />
-                            AR Preview
+                            {t('arPreview')}
                         </TabsTrigger>
                         <TabsTrigger value="events" className="text-base gap-2">
                             <Calendar className="h-5 w-5" />
-                            Sự kiện
+                            {t('events')}
                         </TabsTrigger>
                     </TabsList>
 

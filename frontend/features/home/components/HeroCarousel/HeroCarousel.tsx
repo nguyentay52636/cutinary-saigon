@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import CardSliderItem from './components/CardSliderItem'
 import SliderNavigation from './components/SliderNavigation'
+import { useTranslation } from '@/shared/contexts/TranslationContext'
 
 const heroImages = [
   { src: "/img/pho-bowl.jpg", alt: "Phở Bò" },
@@ -25,6 +26,7 @@ export default function HeroCarousel() {
   const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!isPaused) {
@@ -75,7 +77,7 @@ export default function HeroCarousel() {
             style={{ fontFamily: 'Inter, sans-serif' }}
             variants={itemVariants}
           >
-            Khám phá Hương Vị <span style={{ color: '#C9482B' }}>Sài Gòn</span>
+            {t('hero.discoverSaigonFlavor')}
           </motion.h1>
 
           <motion.p
@@ -83,9 +85,7 @@ export default function HeroCarousel() {
             style={{ fontFamily: 'Inter, sans-serif' }}
             variants={itemVariants}
           >
-            Hành trình ẩm thực đầy cảm hứng — nơi từng con phố, từng góc chợ đều kể câu chuyện riêng
-            về <span className="text-[#C9482B] font-medium">hương vị, con người</span> và
-            <span className="font-medium"> văn hóa đặc trưng của Sài Gòn</span>.
+            {t('hero.culinaryJourney')}
           </motion.p>
 
         </motion.div>
@@ -164,7 +164,7 @@ export default function HeroCarousel() {
             onMouseEnter={() => { }}
           >
             <Link href="/explore">
-              Khám phá ngay
+              {t('hero.discoverNow')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

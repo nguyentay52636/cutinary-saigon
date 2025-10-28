@@ -1,13 +1,15 @@
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/shared/ui/card"
 import { Search, MapPin, Heart, TrendingUp } from "lucide-react"
+import { useTranslation } from '@/shared/contexts/TranslationContext'
 
 export function QuickAccessGrid() {
+    const { t } = useTranslation()
     return (
         <Card className="border-2 shadow-xl bg-gradient-to-br from-primary/5 via-card to-secondary/5">
             <CardHeader>
-                <CardTitle className="text-2xl">Truy cập nhanh</CardTitle>
-                <CardDescription>Các tính năng hữu ích cho bạn</CardDescription>
+                <CardTitle className="text-2xl">{t('quickAccessTitle') || 'Truy cập nhanh'}</CardTitle>
+                <CardDescription>{t('quickAccessSubtitle') || 'Các tính năng hữu ích cho bạn'}</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -18,8 +20,8 @@ export function QuickAccessGrid() {
                                     <Search className="h-8 w-8 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold mb-1">Nhận diện món ăn</h3>
-                                    <p className="text-xs text-muted-foreground">Tìm món ăn qua hình ảnh</p>
+                                    <h3 className="font-bold mb-1">{t('foodRecognition')}</h3>
+                                    <p className="text-xs text-muted-foreground">{t('quickAccessFoodRecognitionDesc') || 'Tìm món ăn qua hình ảnh'}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -32,8 +34,8 @@ export function QuickAccessGrid() {
                                     <MapPin className="h-8 w-8 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold mb-1">Bản đồ</h3>
-                                    <p className="text-xs text-muted-foreground">Khám phá quán ăn gần bạn</p>
+                                    <h3 className="font-bold mb-1">{t('map')}</h3>
+                                    <p className="text-xs text-muted-foreground">{t('quickAccessMapDesc') || 'Khám phá quán ăn gần bạn'}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -46,8 +48,8 @@ export function QuickAccessGrid() {
                                     <Heart className="h-8 w-8 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold mb-1">Yêu thích</h3>
-                                    <p className="text-xs text-muted-foreground">Quản lý món ăn yêu thích</p>
+                                    <h3 className="font-bold mb-1">{t('homePage.favorites')}</h3>
+                                    <p className="text-xs text-muted-foreground">{t('quickAccessFavoritesDesc') || 'Quản lý món ăn yêu thích'}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -60,8 +62,8 @@ export function QuickAccessGrid() {
                                     <TrendingUp className="h-8 w-8 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold mb-1">Khám phá</h3>
-                                    <p className="text-xs text-muted-foreground">Tìm kiếm nâng cao</p>
+                                    <h3 className="font-bold mb-1">{t('explore')}</h3>
+                                    <p className="text-xs text-muted-foreground">{t('quickAccessExploreDesc') || 'Tìm kiếm nâng cao'}</p>
                                 </div>
                             </CardContent>
                         </Card>

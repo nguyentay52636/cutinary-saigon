@@ -8,6 +8,7 @@ import { MapPin } from 'lucide-react'
 import { Button } from '@/shared/ui/button'
 import Link from 'next/link'
 import { useUserStore } from '@/stores/user-store'
+import { useTranslation } from '@/shared/contexts/TranslationContext'
 export const featuredDishes = [
     {
         id: "1",
@@ -72,6 +73,7 @@ export const featuredDishes = [
 ]
 export default function FavoriteFoots() {
     const { favorites, toggleFavorite } = useUserStore();
+    const { t } = useTranslation()
     return (
         <>
             <section id="featured" className="py-24 bg-gradient-to-b from-background to-muted/20">
@@ -79,11 +81,11 @@ export default function FavoriteFoots() {
                     <div className="text-center mb-16">
                         <Badge className="mb-4" variant="outline">
                             <Star className="w-4 h-4 mr-2 fill-primary text-primary" />
-                            Món ăn nổi bật
+                            {t('dishes.featuredDishes')}
                         </Badge>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4">Món ăn được yêu thích nhất</h2>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('dishes.mostLovedDishes')}</h2>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            Khám phá những món ăn đặc trưng và được đánh giá cao nhất tại Sài Gòn
+                            {t('dishes.discoverDishes')}
                         </p>
                     </div>
 
@@ -125,7 +127,7 @@ export default function FavoriteFoots() {
                                     </div>
                                     <Button asChild className="w-full bg-primary hover:bg-primary/90 cursor-pointer text-white!  hover:text-white" variant="outline">
                                         <Link href={`/restaurant/${dish.id}`}>
-                                            Xem chi tiết
+                                            {t('dishes.viewDetails')}
                                             <ArrowUpRight className="ml-2 h-5 w-5" />
                                         </Link>
                                     </Button>
@@ -137,7 +139,7 @@ export default function FavoriteFoots() {
                     <div className="text-center mt-12">
                         <Button asChild size="lg" variant="outline">
                             <Link href="/explore">
-                                Xem tất cả món ăn
+                                {t('dishes.viewAllDishes')}
                                 <ArrowUpRight className="ml-2 h-5 w-5" />
                             </Link>
                         </Button>

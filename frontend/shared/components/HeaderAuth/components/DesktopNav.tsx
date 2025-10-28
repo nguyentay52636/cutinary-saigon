@@ -51,7 +51,7 @@ export function DesktopNav() {
                 asChild
                 variant={pathname?.startsWith("/admin") ? "default" : "ghost"}
                 className={cn(
-                    "gap-2 h-10 px-4 transition-all duration-300 ml-2 border-l",
+                    "gap-2 h-10 px-4 transition-all duration-300 ml-2 border-al",
                     pathname?.startsWith("/admin") &&
                     "shadow-lg bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
                 )}
