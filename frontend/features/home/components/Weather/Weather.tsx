@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/shared/ui/card'
 import { Star, MapPin, NavigationIcon, Navigation, CloudRain, Wind, Droplets } from 'lucide-react'
 import { Button } from '@/shared/ui/button'
 import Link from 'next/link'
-import { useWeatherStore } from '@/public/saigon-culinary-hub-1/lib/stores/weather-store'
+import { useWeatherStore } from '@/stores/weather-store'
 import { useLocationStore } from '@/stores/location-store'
 
 export default function Weather() {

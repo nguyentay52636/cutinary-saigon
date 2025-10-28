@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/shared/ui/card'
 import { MapPin } from 'lucide-react'
 import { Button } from '@/shared/ui/button'
 import Link from 'next/link'
-import { useUserStore } from '@/stores/user-stores  '
+import { useUserStore } from '@/stores/user-store'
 export const featuredDishes = [
     {
         id: "1",
