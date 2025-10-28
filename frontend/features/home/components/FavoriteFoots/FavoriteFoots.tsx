@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/shared/ui/card'
 import { MapPin } from 'lucide-react'
 import { Button } from '@/shared/ui/button'
 import Link from 'next/link'
-import { useUserStore } from '@/public/saigon-culinary-hub-1/lib/stores/user-store'
+import { useUserStore } from '@/stores/user-stores  '
 export const featuredDishes = [
     {
         id: "1",
@@ -121,10 +121,13 @@ export default function FavoriteFoots() {
                                             <span className="font-semibold">{dish.rating}</span>
                                             <span className="text-sm text-muted-foreground">({dish.reviews})</span>
                                         </div>
-                                        <span className="text-lg font-bold text-primary">{dish.price}</span>
+                                        <span className="text-lg font-bold text-primary ">{dish.price}</span>
                                     </div>
-                                    <Button asChild className="w-full bg-transparent" variant="outline">
-                                        <Link href={`/restaurant/${dish.id}`}>Xem chi tiết</Link>
+                                    <Button asChild className="w-full bg-primary hover:bg-primary/90 cursor-pointer text-white!  hover:text-white" variant="outline">
+                                        <Link href={`/restaurant/${dish.id}`}>
+                                            Xem chi tiết
+                                            <ArrowUpRight className="ml-2 h-5 w-5" />
+                                        </Link>
                                     </Button>
                                 </CardContent>
                             </Card>

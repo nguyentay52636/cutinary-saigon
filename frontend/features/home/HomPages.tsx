@@ -1,6 +1,6 @@
 import React from 'react'
 import HeroCarousel from './components/HeroCarousel/HeroCarousel'
-import Revenue from './components/Revenue/Revenue'
+import Revenue from '../about/components/Revenue/Revenue'
 import Weather from './components/Weather/Weather'
 import FavoriteFoots from './components/FavoriteFoots/FavoriteFoots'
 export default function HomPages() {
@@ -9,7 +9,7 @@ export default function HomPages() {
             <HeroCarousel />
             <Weather />
             <FavoriteFoots />
-            <Revenue />
+
 
         </>
     )

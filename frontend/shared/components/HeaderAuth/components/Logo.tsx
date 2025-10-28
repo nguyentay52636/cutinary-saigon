@@ -11,9 +11,10 @@ export function Logo() {
                 <h1 className="text-xl font-bold leading-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                     Sài Gòn Culinary Hub
                 </h1>
-                <p className="text-xs text-muted-foreground font-medium">
-                    Nền tảng ẩm thực chuyên nghiệp
+                <p className="text-md text-muted-foreground font-medium">
+                    tảng ẩm thực Việt Nam 🇻🇳
                 </p>
+           
             </div>
         </Link>
     )
