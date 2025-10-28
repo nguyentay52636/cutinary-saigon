@@ -61,7 +61,7 @@ export default function HeroCarousel() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ backgroundColor: '#F8F4ED' }}
+
     >
       <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32">
         <motion.div

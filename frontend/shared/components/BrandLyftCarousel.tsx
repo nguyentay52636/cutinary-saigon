@@ -3,7 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Card } from '@/shared/ui/card'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 
 interface BrandLyftImage {
     src: string
