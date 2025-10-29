@@ -24,9 +24,10 @@ export default function Footer() {
                     <div className="grid md:grid-cols-4 gap-12 mb-12">
                         <div className="md:col-span-2">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center">
+                                {/* <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center">
                                     <ChefHat className="w-7 h-7 text-primary-foreground" />
-                                </div>
+                                </div> */}
+                                <img src="/logochinh.png" alt="" className="w-23 h-20 z-10" />
                                 <div>
                                     <h3 className="font-bold text-lg">{t('footer.companyName')}</h3>
                                     <p className="text-sm text-muted-foreground">{t('footer.tagline')}</p>
