@@ -7,34 +7,34 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
 
 const inter = Inter({
-    subsets: ["latin"],
-    variable: "--font-inter",
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export default async function LocaleLayout({
-    children,
+  children,
 }: Readonly<{
-    children: ReactNode;
+  children: ReactNode;
 }>) {
-    const locale = await getLocale();
-    const messages = await getMessages();
+  const locale = await getLocale();
+  const messages = await getMessages();
 
-    return (
-        <html lang={locale} className={inter.variable} suppressHydrationWarning>
-            <body>
-                <NextIntlClientProvider messages={messages}>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="light"
-                        enableSystem
-                    >
-                        <ClientLayout>
-                            {children}
-                        </ClientLayout>
-                    </ThemeProvider>
-                </NextIntlClientProvider>
-            </body>
-        </html>
-    );
+  return (
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+          >
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+          </ThemeProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
 }
 

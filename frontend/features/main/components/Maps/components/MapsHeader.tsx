@@ -14,8 +14,8 @@ export default function MapsHeader({ restaurantCount }: MapsHeaderProps) {
             <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Button asChild variant="ghost" size="icon" className="hover:bg-primary/10">
-                            <Link href="/dashboard">
+                        <Button asChild variant="ghost" size="icon" className=" cursor-pointer hover:bg-primary/10">
+                            <Link href="/">
                                 <ArrowLeft className="h-5 w-5" />
                             </Link>
                         </Button>
@@ -29,7 +29,7 @@ export default function MapsHeader({ restaurantCount }: MapsHeaderProps) {
                             </div>
                         </div>
                     </div>
-                    <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-md">
+                    <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-md cursor-pointer">
                         <NavigationIcon className="h-4 w-4 mr-2" />
                         Vị trí của tôi
                     </Button>
