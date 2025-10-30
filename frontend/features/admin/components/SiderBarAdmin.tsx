@@ -45,12 +45,12 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
     return (
         <div
             className={cn(
-                "relative h-screen border-r transition-all duration-300",
-                "bg-gradient-to-b from-background via-background to-muted/20",
-                "shadow-lg",
+                "relative h-screen border-r transition-all duration-300 flex flex-col justify-between",
+                "bg-gradient-to-b from-background via-background to-muted/20 shadow-lg",
                 collapsed ? "w-16" : "w-64",
             )}
         >
+            {/* Header/logo section */}
             <div className="flex h-16 items-center justify-between border-b bg-gradient-to-r from-primary/5 to-primary/10 px-4 backdrop-blur-sm">
                 {!collapsed && (
                     <Link href="/admin" className="flex items-center gap-2 group">
@@ -64,7 +64,6 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
                     </Link>
                 )}
                 <div className="flex items-center gap-1">
-
                     <Button
                         variant="ghost"
                         size="icon"
@@ -76,33 +75,39 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
                 </div>
             </div>
 
-            <ScrollArea className="flex-1 py-6">
-                <nav className="space-y-2 px-3">
-                    {menuItems.map((item) => {
-                        const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href))
-                        return (
-                            <Link key={item.href} href={item.href}>
-                                <Button
-                                    variant="ghost"
-                                    className={cn(
-                                        "w-full justify-start gap-3 h-11 transition-all duration-200 rounded-lg",
-                                        collapsed && "justify-center px-2",
-                                        isActive
-                                            ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
-                                            : "hover:bg-primary/10 hover:translate-x-1",
-                                    )}
-                                >
-                                    <div className={cn("rounded-md p-1.5 transition-colors", isActive ? "bg-white/20" : "bg-muted/50")}>
-                                        <item.icon className="h-4 w-4 shrink-0" />
-                                    </div>
-                                    {!collapsed && <span className={cn("font-medium text-sm", isActive ? "text-primary-foreground" : "")}>{item.label}</span>}
-                                </Button>
-                            </Link>
-                        )
-                    })}
-                </nav>
-            </ScrollArea>
-
+            {/* Menu section: occupies available space */}
+            <div className="flex-1 flex flex-col overflow-hidden">
+                <ScrollArea className="flex-1 py-6">
+                    <nav className="space-y-2 px-2">
+                        {menuItems.map((item) => {
+                            const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href))
+                            return (
+                                <Link key={item.href} href={item.href} className="block">
+                                    <Button
+                                        variant="ghost"
+                                        className={cn(
+                                            "w-full cursor-pointer justify-start gap-3 h-12 transition-all duration-200 rounded-xl px-2",
+                                            collapsed && "justify-center px-1",
+                                            isActive
+                                                ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
+                                                : "hover:bg-primary/10 hover:translate-x-1",
+                                        )}
+                                    >
+                                        <div className={cn(
+                                            "rounded-md p-1.5 flex cursor-pointer items-center justify-center transition-colors",
+                                            isActive ? "bg-white/30" : "bg-muted/50"
+                                        )}>
+                                            <item.icon className="h-5 w-5 shrink-0" />
+                                        </div>
+                                        {!collapsed && <span className={cn("font-medium text-sm", isActive ? "text-primary-foreground" : "")}>{item.label}</span>}
+                                    </Button>
+                                </Link>
+                            )
+                        })}
+                    </nav>
+                </ScrollArea>
+            </div>
+            {/* Footer section (optional: for language/settings if muốn) */}
         </div>
     )
 }
