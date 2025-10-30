@@ -39,7 +39,7 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
         { icon: Video, label: t("livestreams"), href: "/admin/livestreams" },
         { icon: Calendar, label: t("events"), href: "/admin/events" },
         { icon: BarChart3, label: t("analytics"), href: "/admin/analytics" },
-        { icon: Settings, label: t("settings"), href: "/admin/settings" },
+
     ]
 
     return (
@@ -64,13 +64,7 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
                     </Link>
                 )}
                 <div className="flex items-center gap-1">
-                    {!collapsed && (
-                        <Button variant="ghost" size="sm" className="hover:bg-primary/10"
-                            onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
-                        >
-                            {language === 'vi' ? 'EN' : 'VI'}
-                        </Button>
-                    )}
+
                     <Button
                         variant="ghost"
                         size="icon"
@@ -85,23 +79,23 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
             <ScrollArea className="flex-1 py-6">
                 <nav className="space-y-2 px-3">
                     {menuItems.map((item) => {
-                        const isActive = pathname === item.href
+                        const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href))
                         return (
                             <Link key={item.href} href={item.href}>
                                 <Button
                                     variant="ghost"
                                     className={cn(
-                                        "w-full justify-start gap-3 h-11 transition-all duration-200",
+                                        "w-full justify-start gap-3 h-11 transition-all duration-200 rounded-lg",
                                         collapsed && "justify-center px-2",
                                         isActive
-                                            ? "bg-gradient-to-r from-primary/15 to-primary/5 text-primary border-l-4 border-primary shadow-sm hover:from-primary/20 hover:to-primary/10"
-                                            : "hover:bg-muted/50 hover:translate-x-1 border-l-4 border-transparent",
+                                            ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
+                                            : "hover:bg-primary/10 hover:translate-x-1",
                                     )}
                                 >
-                                    <div className={cn("rounded-lg p-1.5 transition-colors", isActive ? "bg-primary/10" : "bg-muted/50")}>
+                                    <div className={cn("rounded-md p-1.5 transition-colors", isActive ? "bg-white/20" : "bg-muted/50")}>
                                         <item.icon className="h-4 w-4 shrink-0" />
                                     </div>
-                                    {!collapsed && <span className="font-medium text-sm">{item.label}</span>}
+                                    {!collapsed && <span className={cn("font-medium text-sm", isActive ? "text-primary-foreground" : "")}>{item.label}</span>}
                                 </Button>
                             </Link>
                         )
@@ -109,23 +103,6 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
                 </nav>
             </ScrollArea>
 
-            {!collapsed && (
-                <div className="border-t bg-gradient-to-r from-muted/30 to-muted/10 p-4 backdrop-blur-sm">
-                    <div className="rounded-lg bg-card/50 p-3 border">
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                            <p className="font-semibold text-xs">{t("adminDashboard")}</p>
-                        </div>
-                        <p className="text-[10px] text-muted-foreground">{t("version")}</p>
-                        <div className="mt-2 flex gap-1">
-                            <div className="h-1 flex-1 rounded-full bg-primary/20" />
-                            <div className="h-1 flex-1 rounded-full bg-primary/40" />
-                            <div className="h-1 flex-1 rounded-full bg-primary/60" />
-                            <div className="h-1 flex-1 rounded-full bg-primary" />
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     )
 }
