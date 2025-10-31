@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import LiveStreamHeader from "./components/LiveStreamHeader"
 import LiveStreamPlayer from "./components/LiveStreamPlayer"
 import LiveStreamControls from "./components/LiveStreamControls"
 import LiveStreamActions from "./components/LiveStreamActions"
 import ChatPanel from "./components/ChatPanel"
 import HotStreams from "./components/HotStreams"
+import Header from "@/features/admin/components/LiveStream/components/Header"
 
 export default function LiveStream() {
     const [message, setMessage] = useState("")
@@ -126,6 +126,7 @@ export default function LiveStream() {
     return (
         <>
             {/* <LiveStreamHeader /> */}
+            <Header />
 
             <div className="flex-1 flex overflow-hidden">
                 <div className="flex-1 flex flex-col">

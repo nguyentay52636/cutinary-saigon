@@ -29,7 +29,7 @@ interface Livestream {
     streamUrl: string
 }
 
-export default function LiveStream() {
+export default function LiveSteamAdmin() {
     const { t } = useAdminLanguage()
     const [searchQuery, setSearchQuery] = useState("")
     const [statusFilter, setStatusFilter] = useState<"all" | "live" | "scheduled" | "ended">("all")
