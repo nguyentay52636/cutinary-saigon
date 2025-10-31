@@ -38,7 +38,7 @@ export default function SiderBarAdmin({ collapsed, onToggle }: AdminSidebarProps
         { icon: Star, label: t("reviews"), href: "/admin/reviews" },
         { icon: Video, label: t("livestreams"), href: "/admin/livestreams" },
         { icon: Calendar, label: t("events"), href: "/admin/events" },
-        { icon: BarChart3, label: t("analytics"), href: "/admin/analytics" },
+        { icon: Settings, label: t("settings"), href: "/admin/settings" },
 
     ]
 
