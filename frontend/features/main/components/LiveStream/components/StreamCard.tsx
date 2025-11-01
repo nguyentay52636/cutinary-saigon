@@ -25,7 +25,7 @@ export default function StreamCard({ stream, index }: StreamCardProps) {
             transition={{ delay: index * 0.1 }}
             whileHover={{ y: -4 }}
         >
-            <Card className="cursor-pointer hover:shadow-xl transition-all border-2 hover:border-primary/50 overflow-hidden group">
+            <Card className="cursor-pointer! hover:shadow-xl transition-all border-2 hover:border-primary/50 overflow-hidden group">
                 <CardContent className="p-0">
                     <div className="relative overflow-hidden">
                         <img

@@ -13,27 +13,27 @@ export default function EventsHeader() {
     <>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-black">
             Quản lý sự kiện
           </h1>
           <p className="text-muted-foreground mt-1">Quản lý tất cả sự kiện</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline">
-            <Download className="h-4 w-4 mr-2" />
+            <Download className="h-4 w-4 mr-2 text-black cursor-pointer" />
             Xuất dữ liệu
           </Button>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
-                <Plus className="h-4 w-4 mr-2" />
+              <Button className="bg-primary  hover:primary/90  cursor-pointer">
+                <Plus className="h-4 w-4 mr-2 text-white cursor-pointer" />
                 Thêm sự kiện
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle className="text-2xl">Thêm sự kiện</DialogTitle>
-                <DialogDescription>Tạo sự kiện mới cho cộng đồng ẩm thực</DialogDescription>
+                <DialogTitle className="text-2xl text-black">Thêm sự kiện</DialogTitle>
+                <DialogDescription className="text-black">Tạo sự kiện mới cho cộng đồng ẩm thực</DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">

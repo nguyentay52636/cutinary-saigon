@@ -8,10 +8,10 @@ import { Search, Filter, Star } from "lucide-react"
 
 interface ReviewsFiltersProps {
     searchQuery: string
-    statusFilter: "Tất cả" | "Chờ duyệt" | "Đã duyệt" | "Từ chối" | "Báo cáo"
+    statusFilter: "all" | "pending" | "approved" | "rejected" | "reported"
     ratingFilter: number | null
     onSearchChange: (value: string) => void
-    onStatusFilterChange: (status: "Tất cả" | "Chờ duyệt" | "Đã duyệt" | "Từ chối" | "Báo cáo") => void
+    onStatusFilterChange: (status: "all" | "pending" | "approved" | "rejected" | "reported") => void
     onRatingFilterChange: (rating: number | null) => void
 }
 
