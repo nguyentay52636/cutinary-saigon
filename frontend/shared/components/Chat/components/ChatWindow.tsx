@@ -18,6 +18,7 @@ interface ChatWindowProps {
     onContactAdmin: () => void
     onVoiceCall: () => void
     onVideoCall: () => void
+    isInputDisabled?: boolean
 }
 
 export default function ChatWindow({
@@ -31,6 +32,7 @@ export default function ChatWindow({
     onContactAdmin,
     onVoiceCall,
     onVideoCall,
+    isInputDisabled = false,
 }: ChatWindowProps) {
     return (
         <AnimatePresence>
@@ -54,6 +56,7 @@ export default function ChatWindow({
                         onChange={onInputChange}
                         onSend={onSendMessage}
                         isOpen={isOpen}
+                        isDisabled={isInputDisabled}
                     />
                 </motion.div>
             )}

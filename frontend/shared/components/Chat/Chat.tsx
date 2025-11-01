@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ChatButton, ChatWindow, type Message } from "./components"
 
 export default function Chat() {
@@ -16,6 +16,7 @@ export default function Chat() {
     const [inputValue, setInputValue] = useState("")
     const [isTyping, setIsTyping] = useState(false)
     const [unreadCount, setUnreadCount] = useState(0)
+    const isProcessingRef = useRef(false)
 
     useEffect(() => {
         if (isOpen) {
@@ -24,27 +25,34 @@ export default function Chat() {
     }, [isOpen])
 
     const handleSendMessage = async () => {
-        if (!inputValue.trim()) return
+        if (!inputValue.trim() || isProcessingRef.current || isTyping) {
+            return
+        }
 
+        isProcessingRef.current = true
+        setIsTyping(true)
+
+        const userInput = inputValue.trim()
         const userMessage: Message = {
             id: Date.now().toString(),
-            text: inputValue,
+            text: userInput,
             sender: "user",
             timestamp: new Date(),
         }
 
-        const userInput = inputValue.trim()
-        setMessages((prev) => [...prev, userMessage])
         setInputValue("")
-        setIsTyping(true)
+
+        // Thêm user message vào state trước
+        setMessages((prev) => [...prev, userMessage])
+
+        // Lấy conversation history từ state hiện tại + userMessage mới
+        const updatedMessages = [...messages, userMessage]
+        const recentMessages = updatedMessages.slice(-10).map((msg) => ({
+            role: msg.sender === "user" ? "user" : "assistant",
+            content: msg.text,
+        }))
 
         try {
-            const allMessages = [...messages, userMessage]
-            const recentMessages = allMessages.slice(-10).map((msg) => ({
-                role: msg.sender === "user" ? "user" : "assistant",
-                content: msg.text,
-            }))
-
             console.log("[Chat] Sending request to /api/openrouter:", {
                 prompt: userInput,
                 messagesCount: recentMessages.length
@@ -77,7 +85,6 @@ export default function Chat() {
                 hasContent: !!data?.choices?.[0]?.message?.content
             })
 
-            // Kiểm tra response structure từ OpenRouter
             const botText =
                 data?.choices?.[0]?.message?.content ||
                 data?.choices?.[0]?.content ||
@@ -101,10 +108,10 @@ export default function Chat() {
                 message: error?.message,
                 stack: error?.stack
             })
+
             const errorMessage: Message = {
                 id: (Date.now() + 1).toString(),
-                text:
-                    "Xin lỗi, đã có lỗi xảy ra khi xử lý câu hỏi của bạn. Vui lòng thử lại sau hoặc liên hệ admin để được hỗ trợ. 😊",
+                text: "Xin lỗi, đã có lỗi xảy ra khi xử lý câu hỏi của bạn. Vui lòng thử lại sau hoặc liên hệ admin để được hỗ trợ. 😊",
                 sender: "bot",
                 timestamp: new Date(),
             }
@@ -115,6 +122,7 @@ export default function Chat() {
             }
         } finally {
             setIsTyping(false)
+            isProcessingRef.current = false
         }
     }
 
@@ -163,6 +171,7 @@ export default function Chat() {
                 onContactAdmin={handleContactAdmin}
                 onVoiceCall={handleVoiceCall}
                 onVideoCall={handleVideoCall}
+                isInputDisabled={isTyping || isProcessingRef.current}
             />
         </>
     )

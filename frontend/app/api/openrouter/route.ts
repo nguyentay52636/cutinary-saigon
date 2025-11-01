@@ -50,15 +50,16 @@ async function openrouterApi(req: Request) {
     if (Array.isArray(conversationHistory) && conversationHistory.length > 0) {
       messages.push(...conversationHistory);
     }
-
-    // Thêm message hiện tại
     messages.push({
       role: "user",
       content: prompt,
     });
 
+    const defaultModel = "deepseek/deepseek-chat";
+    const model = process.env.OPENROUTER_MODEL || defaultModel;
+
     const requestBody = {
-      model: process.env.OPENROUTER_MODEL || "openai/gpt-4",
+      model: model,
       messages: messages,
       temperature: 0.7,
     };
@@ -70,8 +71,8 @@ async function openrouterApi(req: Request) {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        "HTTP-Referer": safeReferer,
-        "X-Title": safeTitle,
+        "HTTP-Referer": safeReferer || "http://localhost:3000",
+        "X-Title": safeTitle || "Sai Gon Culinary Hub",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
@@ -82,6 +83,78 @@ async function openrouterApi(req: Request) {
     if (!response.ok) {
       const err = await response.text();
       console.error("[OpenRouter API] Error response:", err);
+      
+      // Nếu lỗi 404 về data policy, thử model fallback
+      if (response.status === 404 && err.includes("data policy")) {
+        console.log("[OpenRouter API] Model requires privacy settings, trying fallback model...");
+        
+        // Thử với model fallback không yêu cầu privacy settings
+        const fallbackModels = [
+          "meta-llama/llama-3.2-3b-instruct:free",
+          "google/gemini-flash-1.5-8b:free",
+          "qwen/qwen-2.5-7b-instruct:free"
+        ];
+        
+        for (const fallbackModel of fallbackModels) {
+          console.log(`[OpenRouter API] Trying fallback model: ${fallbackModel}`);
+          
+          const fallbackResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "HTTP-Referer": safeReferer || "http://localhost:3000",
+              "X-Title": safeTitle || "Sai Gon Culinary Hub",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              model: fallbackModel,
+              messages: messages,
+              temperature: 0.7,
+            }),
+          });
+          
+          if (fallbackResponse.ok) {
+            const fallbackData = await fallbackResponse.json();
+            console.log("[OpenRouter API] Fallback model succeeded");
+            
+            function stripHtml(input: string) {
+              if (typeof input !== "string") return input;
+              const withoutTags = input.replace(/<[^>]*>/g, " ");
+              const replaced = withoutTags
+                .replace(/&nbsp;/g, " ")
+                .replace(/&amp;/g, "&")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&#39;/g, "'")
+                .replace(/&quot;/g, '"');
+              return replaced.replace(/\s+/g, " ").trim();
+            }
+            
+            if (Array.isArray(fallbackData?.choices) && fallbackData.choices.length > 0) {
+              for (const choice of fallbackData.choices) {
+                const content = choice?.message?.content || choice?.content;
+                if (typeof content === "string") {
+                  if (choice.message) {
+                    choice.message.content = stripHtml(content);
+                  } else {
+                    choice.content = stripHtml(content);
+                  }
+                }
+              }
+            }
+            
+            return NextResponse.json(fallbackData);
+          }
+        }
+        
+        return NextResponse.json(
+          { 
+            error: "Model yêu cầu cấu hình privacy settings. Vui lòng truy cập https://openrouter.ai/settings/privacy để cấu hình, hoặc sử dụng model khác trong biến môi trường OPENROUTER_MODEL" 
+          },
+          { status: 404 }
+        );
+      }
+      
       return NextResponse.json(
         { error: err || "OpenRouter error" },
         { status: response.status }

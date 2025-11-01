@@ -25,7 +25,7 @@ async function openrouterApi(req: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.OPENROUTER_MODEL || "x-ai/grok-4",
+        model: process.env.OPENROUTER_MODEL || "deepseek/deepseek-chat-v3.1:free",
         messages: [
           {
             role: "system",

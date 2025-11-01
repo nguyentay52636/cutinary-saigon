@@ -10,9 +10,10 @@ interface ChatInputProps {
     onChange: (value: string) => void
     onSend: () => void
     isOpen: boolean
+    isDisabled?: boolean
 }
 
-export default function ChatInput({ value, onChange, onSend, isOpen }: ChatInputProps) {
+export default function ChatInput({ value, onChange, onSend, isOpen, isDisabled = false }: ChatInputProps) {
     const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
@@ -29,18 +30,20 @@ export default function ChatInput({ value, onChange, onSend, isOpen }: ChatInput
                     value={value}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
+                        if (e.key === "Enter" && !e.shiftKey && !isDisabled) {
                             e.preventDefault()
                             onSend()
                         }
                     }}
-                    placeholder="Nhập tin nhắn..."
+                    placeholder={isDisabled ? "Đang xử lý..." : "Nhập tin nhắn..."}
                     className="flex-1"
+                    disabled={isDisabled}
                 />
                 <Button
                     onClick={onSend}
                     size="icon"
                     className="bg-primary hover:primary/90 cursor-pointer"
+                    disabled={isDisabled}
                 >
                     <Send className="h-4 w-4" />
                 </Button>
