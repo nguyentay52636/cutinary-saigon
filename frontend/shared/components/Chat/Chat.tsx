@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChatButton, ChatWindow, type Message, getBotResponse } from "./components"
+import { ChatButton, ChatWindow, type Message } from "./components"
 
 export default function Chat() {
     const [isOpen, setIsOpen] = useState(false)
@@ -23,7 +23,7 @@ export default function Chat() {
         }
     }, [isOpen])
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (!inputValue.trim()) return
 
         const userMessage: Message = {
@@ -33,27 +33,89 @@ export default function Chat() {
             timestamp: new Date(),
         }
 
+        const userInput = inputValue.trim()
         setMessages((prev) => [...prev, userMessage])
         setInputValue("")
         setIsTyping(true)
 
-        setTimeout(
-            () => {
-                setIsTyping(false)
-                const botMessage: Message = {
-                    id: (Date.now() + 1).toString(),
-                    text: getBotResponse(inputValue),
-                    sender: "bot",
-                    timestamp: new Date(),
-                }
-                setMessages((prev) => [...prev, botMessage])
+        try {
+            const allMessages = [...messages, userMessage]
+            const recentMessages = allMessages.slice(-10).map((msg) => ({
+                role: msg.sender === "user" ? "user" : "assistant",
+                content: msg.text,
+            }))
 
-                if (!isOpen) {
-                    setUnreadCount((prev) => prev + 1)
-                }
-            },
-            1000 + Math.random() * 1000,
-        )
+            console.log("[Chat] Sending request to /api/openrouter:", {
+                prompt: userInput,
+                messagesCount: recentMessages.length
+            })
+
+            const response = await fetch("/api/openrouter", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    prompt: userInput,
+                    messages: recentMessages,
+                }),
+            })
+
+            console.log("[Chat] Response status:", response.status)
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: "Unknown error" }))
+                console.error("[Chat] API Error:", errorData)
+                throw new Error(errorData.error || "Lỗi khi gọi API")
+            }
+
+            const data = await response.json()
+
+            console.log("[Chat] Response data:", {
+                hasChoices: !!data?.choices,
+                choicesLength: data?.choices?.length,
+                hasContent: !!data?.choices?.[0]?.message?.content
+            })
+
+            // Kiểm tra response structure từ OpenRouter
+            const botText =
+                data?.choices?.[0]?.message?.content ||
+                data?.choices?.[0]?.content ||
+                "Xin lỗi, tôi không thể trả lời câu hỏi này lúc này. Vui lòng thử lại sau."
+
+            const botMessage: Message = {
+                id: (Date.now() + 1).toString(),
+                text: botText,
+                sender: "bot",
+                timestamp: new Date(),
+            }
+
+            setMessages((prev) => [...prev, botMessage])
+
+            if (!isOpen) {
+                setUnreadCount((prev) => prev + 1)
+            }
+        } catch (error: any) {
+            console.error("[Chat] Error calling OpenRouter API:", error)
+            console.error("[Chat] Error details:", {
+                message: error?.message,
+                stack: error?.stack
+            })
+            const errorMessage: Message = {
+                id: (Date.now() + 1).toString(),
+                text:
+                    "Xin lỗi, đã có lỗi xảy ra khi xử lý câu hỏi của bạn. Vui lòng thử lại sau hoặc liên hệ admin để được hỗ trợ. 😊",
+                sender: "bot",
+                timestamp: new Date(),
+            }
+            setMessages((prev) => [...prev, errorMessage])
+
+            if (!isOpen) {
+                setUnreadCount((prev) => prev + 1)
+            }
+        } finally {
+            setIsTyping(false)
+        }
     }
 
     const handleContactAdmin = () => {

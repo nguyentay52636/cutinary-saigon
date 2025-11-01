@@ -25,7 +25,7 @@ export default function ChatMessages({ messages, isTyping }: ChatMessagesProps) 
 
     return (
         <div className="flex-1 overflow-hidden">
-            <ScrollArea ref={scrollAreaRef} className="h-full">
+            <ScrollArea ref={scrollAreaRef} className="h-full z-100!">
                 <div className="p-4 space-y-4">
                     {messages.map((message) => (
                         <MessageBubble key={message.id} message={message} />
